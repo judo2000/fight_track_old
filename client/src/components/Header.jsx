@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
+import { useState } from "react";
 const Header = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <header className="bg-slate-800 shadow-md">
       <div className="flex justify-between max-w-6xl mx-auto p-3">
@@ -20,9 +23,9 @@ const Header = () => {
               About
             </li>
           </Link>
-          <Link to="/sign-in">
+          <Link to="/sign-up">
             <li className="bg-slate-600 text-slate-300 hover:bg-slate-400 hover:text-slate-800 p-2">
-              Sign In
+              Sign Up
             </li>
           </Link>
         </ul>
