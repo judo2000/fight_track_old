@@ -1,3 +1,16 @@
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header";
+import HomeScreen from "./screens/HomeScreen";
+
 export default function App() {
-  return <h1 className="text-red-950 font-bold text-lg text-center">App</h1>;
+  return (
+    <>
+      <Header />
+      <main className="py-3">
+        <div>
+          <Outlet />
+        </div>
+      </main>
+    </>
+  );
 }
