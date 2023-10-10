@@ -7,7 +7,7 @@ import generateToken from "../utils/generateToken.js";
 // @access   Public
 
 export const registerUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, isAthlete, isCoach, password } = req.body;
 
   const userExists = await User.findOne({ email });
   if (userExists) {
@@ -18,6 +18,8 @@ export const registerUser = asyncHandler(async (req, res) => {
     firstName,
     lastName,
     email,
+    isAthlete,
+    isCoach,
     password,
   });
 
