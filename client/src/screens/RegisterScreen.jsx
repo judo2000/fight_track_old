@@ -41,7 +41,7 @@ const RegisterScreen = () => {
         dispatch(setCredentials({ ...res }));
         navigate("/");
       } catch (err) {
-        toast.error(err?.data?.messsage || err.error);
+        toast.error(err?.data?.message || err.error);
       }
     }
   };
