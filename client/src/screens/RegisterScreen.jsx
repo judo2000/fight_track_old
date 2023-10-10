@@ -9,6 +9,8 @@ const RegisterScreen = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [isAthlete, setIsAthlete] = useState("");
+  const [isCoach, setIsCoach] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -36,6 +38,8 @@ const RegisterScreen = () => {
           firstName,
           lastName,
           email,
+          isAthlete,
+          isCoach,
           password,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
@@ -74,6 +78,26 @@ const RegisterScreen = () => {
           className="border p-3 rounded-lg"
           onChange={(e) => setEmail(e.target.value)}
         />
+        <div className="flex">
+          <span className="text-bold pr-2">I am an athlete </span>
+          <input
+            type="checkbox"
+            id="isAthlete"
+            value={true}
+            className="border p-3 rounded-lg"
+            onChange={(e) => setIsAthlete(e.target.value)}
+          />
+        </div>
+        <div className="flex">
+          <span className="text-bold pr-2">I am a coach </span>
+          <input
+            type="checkbox"
+            id="isCoach"
+            value={true}
+            className="border p-3 rounded-lg"
+            onChange={(e) => setIsCoach(e.target.value)}
+          />
+        </div>
         <input
           type="password"
           id="password"
