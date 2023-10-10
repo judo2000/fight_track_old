@@ -49,9 +49,9 @@ const Header = () => {
               Logout
             </li>
           ) : (
-            <Link to="/sign-up">
+            <Link to="/login">
               <li className="bg-slate-600 text-slate-300 hover:bg-slate-400 hover:text-slate-800 p-2">
-                Sign Up
+                Sign In
               </li>
             </Link>
           )}
