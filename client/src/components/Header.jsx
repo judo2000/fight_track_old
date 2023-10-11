@@ -44,7 +44,7 @@ const Header = () => {
           {userInfo ? (
             <li
               onClick={logoutHandler}
-              className="bg-slate-600 text-slate-300 hover:bg-slate-400 hover:text-slate-800 p-2"
+              className="bg-slate-600 text-slate-300 hover:bg-slate-400 hover:text-slate-800 p-2 cursor-pointer"
             >
               Logout
             </li>
