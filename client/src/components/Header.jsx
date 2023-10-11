@@ -42,12 +42,19 @@ const Header = () => {
             </li>
           </Link>
           {userInfo ? (
-            <li
-              onClick={logoutHandler}
-              className="bg-slate-600 text-slate-300 hover:bg-slate-400 hover:text-slate-800 p-2 cursor-pointer"
-            >
-              Logout
-            </li>
+            <>
+              <img
+                src={userInfo.data.avatar}
+                alt="Profile"
+                className="rounded-full h-7 w-7 object-cover"
+              />
+              <li
+                onClick={logoutHandler}
+                className="bg-slate-600 text-slate-300 hover:bg-slate-400 hover:text-slate-800 p-2 cursor-pointer"
+              >
+                Logout
+              </li>
+            </>
           ) : (
             <Link to="/login">
               <li className="bg-slate-600 text-slate-300 hover:bg-slate-400 hover:text-slate-800 p-2">
