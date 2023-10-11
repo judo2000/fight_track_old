@@ -22,18 +22,20 @@ const userSchema = mongoose.Schema(
     },
     isAthlete: {
       type: Boolean,
-      required: true,
       default: false,
     },
     isCoach: {
       type: Boolean,
-      required: true,
       default: false,
     },
     isAdmin: {
       type: Boolean,
-      required: true,
       default: false,
+    },
+    avatar: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/judo2000/image/upload/v1696808114/default_caemyy.jpg",
     },
   },
   {

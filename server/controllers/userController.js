@@ -20,6 +20,7 @@ export const authUser = asyncHandler(async (req, res) => {
       isAthlete: user.isAthlete,
       isCoach: user.isCoach,
       isAdmin: user.isAdmin,
+      avatar: user.avatar,
     });
   } else {
     res.status(401);
@@ -59,8 +60,64 @@ export const registerUser = asyncHandler(async (req, res) => {
       isAthlete: user.isAthlete,
       isCoach: user.isCoach,
       isAdmin: user.isAdmin,
+      avatar: user.avatar,
     });
   } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+});
+
+// @desc     Singn up/in with google
+// @route    POST /api/users
+// @access   Public
+export const google = asyncHandler(async (req, res) => {
+  console.log("inside the google controller");
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    console.log(user);
+    if (user) {
+      generateToken(res, user._id);
+
+      res.status(200).json({
+        _id: user._id,
+        firstName: user.firstName,
+        email: user.email,
+        isAthlete: user.isAthlete,
+        isCoach: user.isCoach,
+        isAdmin: user.isAdmin,
+        avatar: user.avatar,
+      });
+    } else {
+      console.log("no user");
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+
+      const user = await User.create({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: generatedPassword,
+        avatar: req.body.photo,
+      });
+
+      if (user) {
+        generateToken(res, user._id);
+
+        res.status(201).json({
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          isAthlete: user.isAthlete,
+          isCoach: user.isCoach,
+          isAdmin: user.isAdmin,
+          avatar: user.avatar,
+        });
+      }
+    }
+  } catch (err) {
     res.status(400);
     throw new Error("Invalid user data");
   }

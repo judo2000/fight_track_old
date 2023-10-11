@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setCredentials } from "../slices/authSlice";
+import OAuth from "../components/OAuth";
 
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState("");
@@ -120,6 +121,7 @@ const RegisterScreen = () => {
         >
           {isLoading ? "Loading..." : "Sign Up"}
         </button>
+        <OAuth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>{"Don't have an account?"}</p>
