@@ -12,7 +12,8 @@ const OAuth = () => {
 
   const [google] = useGoogleMutation();
 
-  const handleGoogleClick = async () => {
+  const handleGoogleClick = async (e) => {
+    e.preventDefault();
     try {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
