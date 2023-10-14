@@ -4,11 +4,16 @@ import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaTimes } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import useClickOutside from "../helpers/clickOutside";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [showMenu, setShowMenu] = useState(false);
+  const [dropDownIsOpen, setDropDownIsOpen] = useState(false);
+
+  const menuRef = useRef(null);
+  const navRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,6 +41,8 @@ const Header = () => {
       list.classList.remove("top-[80px]"), list.classList.remove("opacity-100");
     }
   };
+  useClickOutside(menuRef, () => setDropDownIsOpen(false));
+  useClickOutside(navRef, () => menu());
 
   return (
     <nav className="p-7 md:p5 bg-slate-900 shadow-md md:flex md:items-center md:justify-between">
@@ -55,7 +62,10 @@ const Header = () => {
           )}
         </span>
       </div>
-      <ul className="md:flex md:items-center md:justify-between z-[1] md:z-auto md:static absolute bg-slate-900 w-full left-0 md:w-auto md:py-0  py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
+      <ul
+        ref={navRef}
+        className="md:flex md:items-start md:justify-around z-[1] md:z-auto md:static absolute bg-slate-900 w-full left-0 md:w-auto md:py-0  py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500"
+      >
         <Link to="/" onClick={menu}>
           <li className="text-white text-xl hover:text-slate-300 hover:underline duration-500 mx-4 my-6 md:my-0 cursor-pointer">
             Home
@@ -70,17 +80,44 @@ const Header = () => {
 
         {userInfo ? (
           <>
-            <img
-              src={userInfo.data.avatar}
-              alt="Profile"
-              className="rounded-full h-7 w-7 object-cover"
-            />
-            <li
-              onClick={logoutHandler}
-              className="text-white text-xl hover:text-slate-300 hover:underline duration-500 mx-4 my-6 md:my-0 cursor-pointer"
+            <div
+              ref={menuRef}
+              className="relative flex flex-col md:flex  text-white text-xl hover:text-slate-300 hover:underline duration-500 ml-4"
             >
-              Log out
-            </li>
+              <div
+                className="cursor-pointer flex md:justify-center"
+                onClick={() => setDropDownIsOpen(!dropDownIsOpen)}
+              >
+                <img
+                  src={userInfo.data.avatar}
+                  alt="Profile"
+                  className="rounded-full h-7 w-7 object-cover"
+                />
+                <span className=" text-white text-xl hover:text-slate-300 hover:underline duration-500 mx-4 md:my-0">
+                  {userInfo.data.firstName}
+                </span>
+              </div>
+              {dropDownIsOpen && (
+                <div className="absolute top-8 md:right-0 bg-white rounded-lg py-2">
+                  <Link to="/profile" onClick={menu}>
+                    <span className="block px-4 py-2 text-slate-900 text-xl hover:bg-slate-900 hover:text-slate-300 hover:underline duration-500">
+                      Profile
+                    </span>
+                  </Link>
+                  <Link to="/dashboard" onClick={menu}>
+                    <span className="block px-4 py-2 text-slate-900 text-xl hover:bg-slate-900 hover:text-slate-300 hover:underline duration-500">
+                      Dashboard
+                    </span>
+                  </Link>
+                  <span
+                    onClick={logoutHandler}
+                    className="block px-4 py-2 text-slate-900 text-xl hover:text-slate-300 hover:bg-slate-900 hover:underline duration-500 cursor-pointer"
+                  >
+                    Logout
+                  </span>
+                </div>
+              )}
+            </div>
           </>
         ) : (
           <Link to="/login" onClick={menu}>
